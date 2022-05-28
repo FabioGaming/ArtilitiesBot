@@ -8,5 +8,11 @@ namespace ArtilitiesBot.Commands
 {
     class getDictionary
     {
+        public async Task getdictionaryEntry(string query)
+        {
+
+        } 
+
+
     }
 }

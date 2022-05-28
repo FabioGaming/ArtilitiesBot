@@ -8,5 +8,9 @@ namespace ArtilitiesBot.Commands
 {
     class getIdea
     {
+        public async Task getIdeaHandler()
+        {
+
+        }
     }
 }

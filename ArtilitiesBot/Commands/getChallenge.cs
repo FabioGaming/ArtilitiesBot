@@ -8,5 +8,12 @@ namespace ArtilitiesBot.Commands
 {
     class getChallenge
     {
+
+        public static async Task getChallengeHandler()
+        {
+
+        }
+        
+
     }
 }

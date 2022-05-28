@@ -30,13 +30,32 @@ namespace ArtilitiesBot
 
             //Events
             client.Log += logger;
+            client.Ready += clientReady;
+            client.JoinedGuild += onServerJoin;
+            client.MessageReceived += onMessage;
+            //Events end here
+        }
+
+        static async Task clientReady()
+        {
+            
         }
 
 
-
+        
         private static async Task logger(LogMessage log)
         {
             await Utils.Logger.AddLog(log);
+        }
+        private static async Task onMessage(SocketMessage msg)
+        {
+            Events.messageEvent eventCall = new Events.messageEvent();
+            await eventCall.onMessageHandler(msg);
+        }
+        private static async Task onServerJoin(SocketGuild guild)
+        {
+            Events.serverJoinEvent eventCall = new Events.serverJoinEvent();
+            await eventCall.onServerJoin(guild);
         }
     }
 }
