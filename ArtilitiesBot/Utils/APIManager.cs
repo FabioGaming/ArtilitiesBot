@@ -8,6 +8,13 @@ namespace ArtilitiesBot.Utils
 {
     class APIManager
     {
+        /// <summary>
+        /// Gets a random idea from the Artilities Database
+        /// </summary>
+        /// <returns>
+        /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
+        /// <para>Error: Returns null</para>
+        /// </returns>
         public Dictionary<string,string> GetIdea()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
@@ -31,6 +38,14 @@ namespace ArtilitiesBot.Utils
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns a random Challenge from the artilities database
+        /// </summary>
+        /// <returns>
+        /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
+        /// <para>Error: Returns null</para>
+        /// </returns>
         public Dictionary<string,string> GetChallenge()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
@@ -53,6 +68,15 @@ namespace ArtilitiesBot.Utils
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns Dictionary Entry from Artilities Database, based on given Query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>
+        /// <param>Success: Returns Dictionary containing keys: statusCode, delayTime, word, description</param>
+        /// <param>Error: Returns null</param>
+        /// </returns>
         public Dictionary<string,string> GetDictionaryEntry(string query)
         {
             int counter = 0;

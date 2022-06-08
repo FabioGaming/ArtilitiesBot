@@ -13,6 +13,10 @@ namespace ArtilitiesBot.Events
             welcomeMSG.Color = Color.Purple;
             welcomeMSG.Title = "Thank you for Adding the Artilities to your server!";
             welcomeMSG.Description = "Thank you for adding the official Artilities Discord Bot!\nYou can use **art!help** to get a list of commands!";
+            welcomeMSG.Footer = new EmbedFooterBuilder()
+            {
+                Text = "Artilities - The Solution to artblock"
+            };
             try
             {
                 await guild.SystemChannel.SendMessageAsync("", false, welcomeMSG.Build());

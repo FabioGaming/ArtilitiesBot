@@ -11,6 +11,9 @@ namespace ArtilitiesBot.Utils
         public static string botToken;
 
 
+        public static string version = "1.0";
+
+
         public Task readValues()
         {
             var config = new Dictionary<string, string>();
