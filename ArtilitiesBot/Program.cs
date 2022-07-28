@@ -35,6 +35,10 @@ namespace ArtilitiesBot
             client.JoinedGuild += onServerJoin;
             client.MessageReceived += onMessage;
             //Events end here
+
+
+
+            await Task.Delay(-1);
         }
 
         //Handles mainUI for console

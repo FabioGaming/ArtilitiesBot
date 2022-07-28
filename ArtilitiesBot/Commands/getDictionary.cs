@@ -12,9 +12,34 @@ namespace ArtilitiesBot.Commands
     {
         public async Task getdictionaryEntry(SocketMessage message, string query)
         {
-
+            string searchQuery = query.Substring(7);
+            Dictionary<string, string> lookupOutput = Artilities.main.GetDictionaryEntry(searchQuery);
+            EmbedBuilder responseEmbed = new EmbedBuilder();
+            if(lookupOutput != null)
+            {
+                responseEmbed.Footer = new EmbedFooterBuilder()
+                {
+                    Text = $"Server responded with {lookupOutput["statusCode"]} in {lookupOutput["delayTime"]}MS"
+                };
+                responseEmbed.Color = Color.Purple;
+                if (lookupOutput["word"] != null)
+                {
+                    responseEmbed.Title = "Your lookup result";
+                    responseEmbed.Description = $"First best result for {searchQuery} is:\n\nTerm: {lookupOutput["word"]}\nDescription: {lookupOutput["description"]}";
+                } else
+                {
+                    responseEmbed.Title = "No result found.";
+                    responseEmbed.Description = $"There was no result found for: {searchQuery}";
+                }
+            } else
+            {
+                responseEmbed.Title = "An error occurred!";
+                responseEmbed.Description = "The bot could not get a server response, if this issue continues, consider contacting the Artilities Team!";
+            }
+            try
+            {
+                await message.Channel.SendMessageAsync("", false, responseEmbed.Build());
+            }catch{}
         } 
-
-
     }
 }

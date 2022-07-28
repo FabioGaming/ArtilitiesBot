@@ -13,12 +13,12 @@ namespace ArtilitiesBot.Commands
 
         public async Task getChallengeHandler(SocketMessage message)
         {
-            Utils.APIManager API = new Utils.APIManager();
+            //Utils.APIManager API = new Utils.APIManager();
             EmbedBuilder challengeMessage = new EmbedBuilder();
-            Dictionary<string, string> challenge = API.GetChallenge();
+            Dictionary<string, string> challenge = Artilities.main.GetChallenge();
             if (challenge != null)
             {
-                challengeMessage.Description = $"English:{challenge["english"]}\nRussian: {challenge["russian"]}";
+                challengeMessage.Description = $"English:{challenge["english"]}\n\nRussian: {challenge["russian"]}";
             }
             else { challengeMessage.Description = "An Error occurred."; }
             challengeMessage.Color = Color.Purple;

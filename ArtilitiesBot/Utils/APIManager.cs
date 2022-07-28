@@ -8,6 +8,9 @@ namespace ArtilitiesBot.Utils
 {
     class APIManager
     {
+
+        //WILL BE REPLACED WITH Artilties.NET
+
         /// <summary>
         /// Gets a random idea from the Artilities Database
         /// </summary>
