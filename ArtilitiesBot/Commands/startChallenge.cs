@@ -12,10 +12,10 @@ namespace ArtilitiesBot.Commands
     {
         public async Task startChallengeHandler(SocketMessage message)
         {
-            Utils.APIManager API = new Utils.APIManager();
+            //Utils.APIManager API = new Utils.APIManager();
             EmbedBuilder challengeBuilder = new EmbedBuilder();
-            Dictionary<string, string> responseIdea = API.GetIdea();
-            Dictionary<string, string> responseChallenge = API.GetChallenge();
+            Dictionary<string, string> responseIdea = Artilities.main.GetIdea();
+            Dictionary<string, string> responseChallenge = Artilities.main.GetChallenge();
             if ((responseIdea != null && responseChallenge != null))
             {
                 challengeBuilder.Description = $"English:\nIdea: {responseIdea["english"]}\nChallenge: {responseChallenge["english"]}\n\nRussian:\nIdea: {responseIdea["russian"]}\nChallenge: {responseChallenge["russian"]}";

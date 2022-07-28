@@ -51,7 +51,7 @@ namespace ArtilitiesBot.Events
                             EmbedBuilder errormsg = new EmbedBuilder();
                             errormsg.Title = "Invalid Command.";
                             errormsg.Color = Color.Purple;
-                            errormsg.Description = "The given Command ddoes not exist, please make sure to provide a valid command to use the Artilities Bot!\nType **art!help** to get a list of commands.";
+                            errormsg.Description = "The given Command does not exist, please make sure to provide a valid command to use the Artilities Bot!\nType **art!help** to get a list of commands.";
                             try
                             {
                                 await message.Channel.SendMessageAsync("", false, errormsg.Build());

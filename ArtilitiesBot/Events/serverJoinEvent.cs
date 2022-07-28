@@ -20,7 +20,13 @@ namespace ArtilitiesBot.Events
             try
             {
                 await guild.SystemChannel.SendMessageAsync("", false, welcomeMSG.Build());
-            }catch{ }
+            }catch
+            {
+                try
+                {
+                    await guild.Owner.SendMessageAsync("", false, welcomeMSG.Build());
+                } catch { }
+            }
 
         }
 

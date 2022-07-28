@@ -12,12 +12,12 @@ namespace ArtilitiesBot.Commands
     {
         public async Task getIdeaHandler(SocketMessage message)
         {
-            Utils.APIManager API = new Utils.APIManager();
+            //Utils.APIManager API = new Utils.APIManager();
             EmbedBuilder ideaMessage = new EmbedBuilder();
-            Dictionary<string, string> idea = API.GetIdea();
+            Dictionary<string, string> idea = Artilities.main.GetIdea();
             if (idea != null)
             {
-                ideaMessage.Description = $"English:{idea["english"]}\nRussian: {idea["russian"]}";
+                ideaMessage.Description = $"English:{idea["english"]}\n\nRussian: {idea["russian"]}";
             }
             else { ideaMessage.Description = "An Error occurred."; }
 
@@ -31,7 +31,10 @@ namespace ArtilitiesBot.Commands
             {
                 await message.Channel.SendMessageAsync("", false, ideaMessage.Build());
             }
-            catch { }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
