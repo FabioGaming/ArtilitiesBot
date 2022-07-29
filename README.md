@@ -21,3 +21,5 @@ The bots prefix is `art!`
 
 ## Invite the Bot: [Click here](https://discord.com/api/oauth2/authorize?client_id=1002271285524582400&permissions=274877910016&scope=bot)
 
+## You can Visit Artilities [Here](https://artilities.herokuapp.com)
+
