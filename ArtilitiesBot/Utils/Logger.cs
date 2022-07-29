@@ -18,7 +18,7 @@ namespace ArtilitiesBot.Utils
                 {
                     sw.WriteLine(line);
                 }
-                sw.WriteLine($"[{DateTime.Now.ToString("dd/MM/yyyy")} | {DateTime.Now.ToString("HH:mm:ss")}] {log}");
+                sw.WriteLine($"[{DateTime.Now.ToString("dd/MM/yyyy")} | {DateTime.Now.ToString("HH:mm:ss")}] {log.Message}");
             }
 
 

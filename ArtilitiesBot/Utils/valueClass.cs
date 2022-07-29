@@ -16,6 +16,7 @@ namespace ArtilitiesBot.Utils
 
         public Task readValues()
         {
+            Console.WriteLine("Reading config");
             var config = new Dictionary<string, string>();
             foreach (var row in File.ReadAllLines("properties/artilities.cfg"))
             {
@@ -29,7 +30,7 @@ namespace ArtilitiesBot.Utils
                 using (StreamWriter sw = File.CreateText("properties/artilities.cfg")) { sw.WriteLine("botToken=" + botToken); }
 
             }
-
+            Console.WriteLine("Done reading Config");
             return Task.CompletedTask;
         }
     }

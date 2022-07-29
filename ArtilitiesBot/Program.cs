@@ -1,7 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -13,25 +12,30 @@ namespace ArtilitiesBot
 
         static async Task Main(string[] args)
         {
-            Utils.APIManager API = new Utils.APIManager();
+            Console.WriteLine("Starting bot...");
             Utils.FileSetup Setup = new Utils.FileSetup();
             Utils.valueClass valueReader = new Utils.valueClass();
             await Setup.FileCheck();
             await valueReader.readValues();
 
 
+            Console.WriteLine("Setting SocketConfig");
             var socketConfig = new DiscordSocketConfig
             {
-                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.GuildBans | GatewayIntents.All
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers
             };
             client = new DiscordSocketClient(socketConfig);
             var token = Utils.valueClass.botToken;
+            Console.WriteLine("Done!");
+            Console.WriteLine("Logging in and starting");
+            //Console.WriteLine(token); This is debugging
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
+            Console.WriteLine("Bot started");
 
             //Events
             client.Log += logger;
-            client.Ready += clientReady;
+            client.Ready -= startBot;
             client.JoinedGuild += onServerJoin;
             client.MessageReceived += onMessage;
             //Events end here
@@ -41,20 +45,36 @@ namespace ArtilitiesBot
             await Task.Delay(-1);
         }
 
+        static async Task updatePresence()
+        {
+            while (true)
+            {
+                try
+                {
+                    await client.SetGameAsync("art! on " + client.Guilds.Count + " servers", "", ActivityType.Listening);
+                }
+                catch { }
+                await Task.Delay(10000);
+            }
+        }
+
+        static Task startBot()
+        {
+            /*
+            _ = Task.Run(async () =>
+            {
+                Parallel.Invoke(() => clientReady(), () => updatePresence());
+            }); */
+
+            _ = Task.Run(async () => clientReady());
+            _ = Task.Run(async () => updatePresence());
+            return Task.CompletedTask;
+        }
+
         //Handles mainUI for console
         static async Task clientReady()
         {
-            //Updates rich presence every 10 seconds
-            _ = Task.Run(async () => {
-                while(true)
-                {
-                    try
-                    {
-                        await client.SetGameAsync("art! on " + client.Guilds.Count + " servers", "", ActivityType.Listening);
-                    }catch{}
-                    await Task.Delay(10000);
-                }
-            });
+
             while(true)
             {
                 Console.Clear();
@@ -92,6 +112,7 @@ namespace ArtilitiesBot
         //Adds Discord Log Messages to Log file
         private static async Task logger(LogMessage log)
         {
+            Console.WriteLine(log.Message);
             await Utils.Logger.AddLog(log);
         }
 
