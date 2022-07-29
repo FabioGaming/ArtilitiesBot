@@ -11,7 +11,7 @@ namespace ArtilitiesBot.Events
         {
             EmbedBuilder welcomeMSG = new EmbedBuilder();
             welcomeMSG.Color = Color.Purple;
-            welcomeMSG.Title = "Thank you for Adding the Artilities to your server!";
+            welcomeMSG.Title = "Thank you for Adding Artilities to your server!";
             welcomeMSG.Description = "Thank you for adding the official Artilities Discord Bot!\nYou can use **art!help** to get a list of commands!";
             welcomeMSG.Footer = new EmbedFooterBuilder()
             {
