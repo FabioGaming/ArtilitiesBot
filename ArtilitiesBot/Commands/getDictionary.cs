@@ -39,7 +39,26 @@ namespace ArtilitiesBot.Commands
             try
             {
                 await message.Channel.SendMessageAsync("", false, responseEmbed.Build());
-            }catch{}
+            }catch(Exception e)
+            {
+                try
+                {
+                    EmbedBuilder logMessage = new EmbedBuilder();
+                    logMessage.Title = "An Error Occurred";
+                    logMessage.Description = $"**Error Info**\n Script: getDictionary.cs\nError: {e}";
+                    logMessage.Color = Color.Red;
+                    logMessage.Footer = new EmbedFooterBuilder()
+                    {
+                        Text = $"{DateTime.Now.ToString("dd/MM/yyyy")} / {DateTime.Now.ToString("HH:mm:ss")}"
+                    };
+                    ITextChannel channel = (ITextChannel)Program.client.GetChannel(Convert.ToUInt64(Utils.valueClass.logChannel));
+                    await channel.SendMessageAsync("", false, logMessage.Build());
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error);
+                }
+            }
         } 
     }
 }

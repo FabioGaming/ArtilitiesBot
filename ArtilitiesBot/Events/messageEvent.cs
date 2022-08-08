@@ -11,7 +11,7 @@ namespace ArtilitiesBot.Events
 {
     class messageEvent
     {
-
+        //Handles Commands by checking message content and splitting them
         public async Task onMessageHandler(SocketMessage message)
         {
             Utils.APIManager API = new Utils.APIManager();

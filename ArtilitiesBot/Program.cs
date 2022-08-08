@@ -22,7 +22,7 @@ namespace ArtilitiesBot
             Console.WriteLine("Setting SocketConfig");
             var socketConfig = new DiscordSocketConfig
             {
-                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers, LogLevel = LogSeverity.Error
             };
             client = new DiscordSocketClient(socketConfig);
             var token = Utils.valueClass.botToken;
@@ -35,9 +35,10 @@ namespace ArtilitiesBot
 
             //Events
             client.Log += logger;
-            client.Ready -= startBot;
+            client.Ready += startBot;
             client.JoinedGuild += onServerJoin;
             client.MessageReceived += onMessage;
+            client.LeftGuild += onServerLeave;
             //Events end here
 
 
@@ -54,7 +55,7 @@ namespace ArtilitiesBot
                     await client.SetGameAsync("art! on " + client.Guilds.Count + " servers", "", ActivityType.Listening);
                 }
                 catch { }
-                await Task.Delay(10000);
+                await Task.Delay(25000);
             }
         }
 
@@ -65,7 +66,7 @@ namespace ArtilitiesBot
             {
                 Parallel.Invoke(() => clientReady(), () => updatePresence());
             }); */
-
+            client.Ready -= startBot;
             _ = Task.Run(async () => clientReady());
             _ = Task.Run(async () => updatePresence());
             return Task.CompletedTask;
@@ -112,7 +113,7 @@ namespace ArtilitiesBot
         //Adds Discord Log Messages to Log file
         private static async Task logger(LogMessage log)
         {
-            Console.WriteLine(log.Message);
+            Console.WriteLine(log);
             await Utils.Logger.AddLog(log);
         }
 
@@ -128,6 +129,13 @@ namespace ArtilitiesBot
         {
             Events.serverJoinEvent eventCall = new Events.serverJoinEvent();
             await eventCall.onServerJoin(guild);
+        }
+
+        //Handles Server Leave
+        private static async Task onServerLeave(SocketGuild guild)
+        {
+            Events.ServerLeaveEvent eventCall = new Events.ServerLeaveEvent();
+            await eventCall.onServerLeave(guild);
         }
     }
 }

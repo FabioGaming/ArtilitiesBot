@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using System;
 using System.Threading.Tasks;
 
 namespace ArtilitiesBot.Events
@@ -27,7 +28,32 @@ namespace ArtilitiesBot.Events
                     await guild.Owner.SendMessageAsync("", false, welcomeMSG.Build());
                 } catch { }
             }
+            try
+            {
+                EmbedBuilder logMessage = new EmbedBuilder();
+                logMessage.Author = new EmbedAuthorBuilder
+                {
+                    IconUrl = guild.IconUrl,
+                    Name = guild.Name
+                };
+                
+                logMessage.Title = "Joined Server";
+                logMessage.Description = $"**Server Info**\nName: {guild.Name}\nID: {guild.Id}\nOwner ID: {guild.OwnerId}\nMembers: {guild.MemberCount}";
+                logMessage.Color = Color.Purple;
+                logMessage.Footer = new EmbedFooterBuilder()
+                {
+                    Text = $"{DateTime.Now.ToString("dd/MM/yyyy")} / {DateTime.Now.ToString("HH:mm:ss")}"
+                };
+                ITextChannel channel = (ITextChannel)Program.client.GetChannel(Convert.ToUInt64(Utils.valueClass.logChannel));
+                await channel.SendMessageAsync("", false, logMessage.Build());
+            }catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
+            
+            
+            
         }
 
     }
