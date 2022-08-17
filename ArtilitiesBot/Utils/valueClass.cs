@@ -11,7 +11,7 @@ namespace ArtilitiesBot.Utils
         public static string botToken;
         public static string logChannel;
 
-        public static string version = "1.1.0";
+        public static string version = "1.1.2";
 
         //Reads the values from the artilities Bot Config
         public Task readValues()
