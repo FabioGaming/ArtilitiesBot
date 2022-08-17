@@ -50,6 +50,37 @@ namespace ArtilitiesBot.Commands
                 {
                     Console.WriteLine(error);
                 }
+
+                try
+                {
+                    EmbedBuilder noPerms = new EmbedBuilder();
+                    noPerms.Color = Color.Purple;
+                    noPerms.Title = "An Error Occurred";
+                    noPerms.Description = $"Unable to send messages in <#{message.Channel.Id}>\nPlease make sure this bot has the required permission to send / read messages";
+                    noPerms.Footer = new EmbedFooterBuilder
+                    {
+                        Text = "Thank you for using Artilities!"
+                    };
+                    SocketGuild guild = (message.Channel as SocketGuildChannel).Guild;
+                    await guild.Owner.SendMessageAsync("", false, noPerms.Build());
+                }
+                catch
+                {
+                    try
+                    {
+                        EmbedBuilder noPerms = new EmbedBuilder();
+                        noPerms.Color = Color.Purple;
+                        noPerms.Title = "An Error Occurred";
+                        noPerms.Description = $"Unable to send messages in <#{message.Channel.Id}>\nPlease make sure this bot has the required permission to send / read messages";
+                        noPerms.Footer = new EmbedFooterBuilder
+                        {
+                            Text = "Thank you for using Artilities!"
+                        };
+                        SocketGuild guild = (message.Channel as SocketGuildChannel).Guild;
+                        await guild.SystemChannel.SendMessageAsync("", false, noPerms.Build());
+                    }
+                    catch { }
+                }
             }
         }
     }
