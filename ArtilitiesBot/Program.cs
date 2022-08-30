@@ -19,12 +19,18 @@ namespace ArtilitiesBot
             await valueReader.readValues();
 
 
+            //Setting Artilities.NET values
+            Artilities.users.devkey = Utils.valueClass.devKey;
+            Artilities.users.userID = Utils.valueClass.userID;
+
             Console.WriteLine("Setting SocketConfig");
             var socketConfig = new DiscordSocketConfig
             {
-                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers, LogLevel = LogSeverity.Error
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers, LogLevel = LogSeverity.Error, UseInteractionSnowflakeDate = false
             };
+            
             client = new DiscordSocketClient(socketConfig);
+            
             var token = Utils.valueClass.botToken;
             Console.WriteLine("Done!");
             Console.WriteLine("Logging in and starting");
@@ -39,6 +45,8 @@ namespace ArtilitiesBot
             client.JoinedGuild += onServerJoin;
             client.MessageReceived += onMessage;
             client.LeftGuild += onServerLeave;
+            client.ButtonExecuted += onButtonPressed;
+            client.SelectMenuExecuted += onSelectMenu;
             //Events end here
 
 
@@ -52,7 +60,7 @@ namespace ArtilitiesBot
             {
                 try
                 {
-                    await client.SetGameAsync("art! on " + client.Guilds.Count + " servers", "", ActivityType.Listening);
+                    await client.SetGameAsync("art!help on " + client.Guilds.Count + " servers", "", ActivityType.Listening);
                 }
                 catch { }
                 await Task.Delay(25000);
@@ -136,6 +144,21 @@ namespace ArtilitiesBot
         {
             Events.ServerLeaveEvent eventCall = new Events.ServerLeaveEvent();
             await eventCall.onServerLeave(guild);
+        }
+
+        //Handles Buttons
+        private static async Task onButtonPressed(SocketMessageComponent button)
+        {
+            Events.ButtonHandler eventCall = new Events.ButtonHandler();
+            await eventCall.ButtonEvent(button);
+        }
+
+        //Handles Select Menus
+        private static async Task onSelectMenu(SocketMessageComponent menu)
+        {
+            Events.selectMenuEvent eventCall = new Events.selectMenuEvent();
+            await eventCall.menuHandler(menu);
+
         }
     }
 }

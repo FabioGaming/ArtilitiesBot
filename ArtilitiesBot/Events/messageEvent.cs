@@ -47,6 +47,10 @@ namespace ArtilitiesBot.Events
                             Commands.getDictionary getEntry = new Commands.getDictionary();
                             await getEntry.getdictionaryEntry(message, command);
                             break;
+                        case "user":
+                            Commands.getUser getUser = new Commands.getUser();
+                            await getUser.getUserInfo(message, command);
+                            break;
                         default:
                             EmbedBuilder errormsg = new EmbedBuilder();
                             errormsg.Title = "Invalid Command.";

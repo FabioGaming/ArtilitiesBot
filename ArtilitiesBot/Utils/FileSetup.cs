@@ -22,7 +22,12 @@ namespace ArtilitiesBot.Utils
         {
             System.Console.WriteLine("Creating Files");
             Directory.CreateDirectory("properties");
-            using (StreamWriter sw = File.CreateText("properties/artilities.cfg")) { sw.WriteLine("botToken="); sw.WriteLine("logChannel="); }
+            using (StreamWriter sw = File.CreateText("properties/artilities.cfg")) { 
+                sw.WriteLine("botToken="); 
+                sw.WriteLine("logChannel=");
+                sw.WriteLine("devKey=");
+                sw.WriteLine("userID=");
+            }
             File.CreateText("properties/artilities.log");
             System.Console.WriteLine("Created Files");
         }
