@@ -113,7 +113,7 @@ namespace ArtilitiesBot.Commands
                 */
 
                 var getUserInfoMenu = new SelectMenuBuilder()
-                    .WithPlaceholder("Saved Ideas")
+                    .WithPlaceholder("Change selection here.")
                     .WithCustomId("user_information")
                     .WithMinValues(1)
                     .WithMaxValues(1)
@@ -179,7 +179,7 @@ namespace ArtilitiesBot.Commands
                 EmbedBuilder user_Error = new EmbedBuilder();
                 user_Error.Color = Color.Purple;
                 user_Error.Title = "Something went wrong";
-                user_Error.Description = "Something went wrong during the execution of this command!\nConsider talking to the Artilities Team if thís keeps happening.";
+                user_Error.Description = "Something went wrong during the execution of this command!\nConsider talking to the Artilities Team if this keeps happening.";
                 user_Error.Footer = new EmbedFooterBuilder()
                 {
                     Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
@@ -199,8 +199,6 @@ namespace ArtilitiesBot.Commands
 
         public async Task updateEmbed(SocketMessageComponent embedMenu)
         {
-            await embedMenu.UpdateAsync(msg => msg.Content = "Last modified by " + embedMenu.User.Mention);
-
             string ID = embedMenu.Message.Embeds.ElementAt(0).Fields.ElementAt(0).Value.ToString().Split().Last().Replace("[", null).Replace("]", null);
 
             switch(string.Join(", ", embedMenu.Data.Values))
@@ -219,6 +217,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
+                       
                         string ideaDesc = "";
                         string[] ideas = userIdeas["ideas"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
                         if (ideas.Length > 0)
@@ -234,7 +233,7 @@ namespace ArtilitiesBot.Commands
                         }
                         user_ideas.Description = ideaDesc;
 
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_ideas.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_ideas.Build();msg.Content = "Last Updated by " + embedMenu.User.Mention; });
 
                     } else if(userIdeas["statusCode"] == "403")
                     {
@@ -246,7 +245,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_isPrivate.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     } else if(userIdeas["statusCode"] == "404")
                     {
                         EmbedBuilder user_notFound = new EmbedBuilder();
@@ -257,7 +256,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_notFound.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     } else
                     {
                         EmbedBuilder user_Error = new EmbedBuilder();
@@ -268,11 +267,11 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_Error.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     break;
                 case "user_challenges":
-                    Dictionary<string, string> userChallenges = Artilities.users.getIdeas(ID);
+                    Dictionary<string, string> userChallenges = Artilities.users.getChallenges(ID);
                     if (userChallenges["statusCode"] == "200")
                     {
                         var targetUser = Program.client.Rest.GetUserAsync(Convert.ToUInt64(ID));
@@ -299,7 +298,7 @@ namespace ArtilitiesBot.Commands
                             challengeDesc = "This user has no saved ideas.";
                         }
                         user_challenges.Description = challengeDesc;
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_challenges.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_challenges.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     else if (userChallenges["statusCode"] == "403")
                     {
@@ -311,7 +310,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userChallenges["statusCode"]} in {userChallenges["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_isPrivate.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     else if (userChallenges["statusCode"] == "404")
                     {
@@ -335,11 +334,11 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userChallenges["statusCode"]} in {userChallenges["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_Error.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     break;
                 case "user_colors":
-                    Dictionary<string, string> userColors = Artilities.users.getIdeas(ID);
+                    Dictionary<string, string> userColors = Artilities.users.getColors(ID);
                     if (userColors["statusCode"] == "200")
                     {
                         var targetUser = Program.client.Rest.GetUserAsync(Convert.ToUInt64(ID));
@@ -353,7 +352,7 @@ namespace ArtilitiesBot.Commands
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
                         string colorDesc = "";
-                        string[] colors = userColors["clors"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] colors = userColors["colors"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
                         if (colors.Length > 0)
                         {
                             foreach (string color in colors)
@@ -366,7 +365,7 @@ namespace ArtilitiesBot.Commands
                             colorDesc = "This user has no saved ideas.";
                         }
                         user_colors.Description = colorDesc;
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_colors.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_colors.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     else if (userColors["statusCode"] == "403")
                     {
@@ -378,7 +377,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_isPrivate.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
                     }
                     else if (userColors["statusCode"] == "404")
                     {
@@ -390,8 +389,8 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_notFound.Build());
-                        
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+
                     }
                     else
                     {
@@ -403,7 +402,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_Error.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
 
                     }
                     break;
