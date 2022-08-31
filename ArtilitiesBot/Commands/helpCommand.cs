@@ -15,7 +15,7 @@ namespace ArtilitiesBot.Commands
             EmbedBuilder helpMessage = new EmbedBuilder();
             helpMessage.Color = Color.Purple;
             helpMessage.Title = "List of commands for Artilities";
-            helpMessage.Description = "Artilities Syntax: **art!**\n**art!help** - Get a list of commands\n**art!idea** - Returns an art Idea\n**art!challenge** - returns a fun drawing challenge\n**art!lookup** *<term>* - Look up artist slang, example 'OC'\n**art!getchallenge** - Returns an art idea along with a fun challenge\n**art!user** <ID> / <@> - Returns a users saved ideas, challenges and colors";
+            helpMessage.Description = "Artilities Syntax: **art!**\n**art!help** - Get a list of commands\n**art!idea** - Returns an art Idea\n**art!challenge** - returns a fun drawing challenge\n**art!lookup** *<term>* - Look up artist slang, example 'OC'\n**art!getchallenge** - Returns an art idea along with a fun challenge\n**art!user** <DiscordID> / <@tag> - Returns a users saved ideas, challenges and colors";
             try
             {
                 await message.Channel.SendMessageAsync("", false, helpMessage.Build());
