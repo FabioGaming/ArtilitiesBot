@@ -12,6 +12,7 @@ The bots prefix is `art!`
 - `art!challenge` - Will return an Art challenge you could try out to challenge yourself a bit.
 - `art!getchallenge` - much like `art!challenge`, this command will return an Art idea along with an Art challenge in both russian and english!
 - `art!lookup <term>` - This command allows you to look up Artist Slang saved in the Artilitites Database!
+- `art!user <@tag> / <DiscordID>` - This command allows you to see the saved ideas, challenges and colors of a user, note that this user needs to be registered into the Artilities Database
 
 ## Will this bot save any Information about any server?
 **No**. This bot won't save any information about any server, the only things we do take a log of, are normal discord Log event messages.
