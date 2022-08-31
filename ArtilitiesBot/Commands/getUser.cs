@@ -212,6 +212,7 @@ namespace ArtilitiesBot.Commands
                         EmbedBuilder user_ideas = new EmbedBuilder();
                         user_ideas.Color = Color.Purple;
                         user_ideas.AddField("User Information", $"{targetUser.Result.Username}#{targetUser.Result.Discriminator} [{targetUser.Result.Id}]");
+                        user_ideas.AddField("Last requested by ", $"{embedMenu.User.Mention} [{embedMenu.User.Id}]");
                         user_ideas.Title = $"Saved ideas of **{targetUser.Result.Username}**";
                         user_ideas.Footer = new EmbedFooterBuilder()
                         {
@@ -233,7 +234,7 @@ namespace ArtilitiesBot.Commands
                         }
                         user_ideas.Description = ideaDesc;
 
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_ideas.Build();msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_ideas.Build();});
 
                     } else if(userIdeas["statusCode"] == "403")
                     {
@@ -245,7 +246,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Components = null; });
                     } else if(userIdeas["statusCode"] == "404")
                     {
                         EmbedBuilder user_notFound = new EmbedBuilder();
@@ -256,7 +257,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Components = null; });
                     } else
                     {
                         EmbedBuilder user_Error = new EmbedBuilder();
@@ -267,7 +268,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userIdeas["statusCode"]} in {userIdeas["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Components = null; });
                     }
                     break;
                 case "user_challenges":
@@ -279,6 +280,7 @@ namespace ArtilitiesBot.Commands
                         EmbedBuilder user_challenges = new EmbedBuilder();
                         user_challenges.Color = Color.Purple;
                         user_challenges.AddField("User Information", $"{targetUser.Result.Username}#{targetUser.Result.Discriminator} [{targetUser.Result.Id}]");
+                        user_challenges.AddField("Last requested by ", $"{embedMenu.User.Mention} [{embedMenu.User.Id}]");
                         user_challenges.Title = $"Saved Challenges of **{targetUser.Result.Username}**";
                         user_challenges.Footer = new EmbedFooterBuilder()
                         {
@@ -298,7 +300,7 @@ namespace ArtilitiesBot.Commands
                             challengeDesc = "This user has no saved ideas.";
                         }
                         user_challenges.Description = challengeDesc;
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_challenges.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_challenges.Build();});
                     }
                     else if (userChallenges["statusCode"] == "403")
                     {
@@ -310,7 +312,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userChallenges["statusCode"]} in {userChallenges["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Components = null; });
                     }
                     else if (userChallenges["statusCode"] == "404")
                     {
@@ -322,7 +324,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userChallenges["statusCode"]} in {userChallenges["delayTime"]}ms"
                         };
-                        await embedMenu.ModifyOriginalResponseAsync(msg => msg.Embed = user_notFound.Build());
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Components = null; });
                     }
                     else
                     {
@@ -334,7 +336,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userChallenges["statusCode"]} in {userChallenges["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Components = null; });
                     }
                     break;
                 case "user_colors":
@@ -346,6 +348,7 @@ namespace ArtilitiesBot.Commands
                         EmbedBuilder user_colors = new EmbedBuilder();
                         user_colors.Color = Color.Purple;
                         user_colors.AddField("User Information", $"{targetUser.Result.Username}#{targetUser.Result.Discriminator} [{targetUser.Result.Id}]");
+                        user_colors.AddField("Last requested by ", $"{embedMenu.User.Mention} [{embedMenu.User.Id}]");
                         user_colors.Title = $"Saved colors of **{targetUser.Result.Username}**";
                         user_colors.Footer = new EmbedFooterBuilder()
                         {
@@ -365,7 +368,7 @@ namespace ArtilitiesBot.Commands
                             colorDesc = "This user has no saved ideas.";
                         }
                         user_colors.Description = colorDesc;
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_colors.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_colors.Build();});
                     }
                     else if (userColors["statusCode"] == "403")
                     {
@@ -377,7 +380,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_isPrivate.Build(); msg.Components = null; });
                     }
                     else if (userColors["statusCode"] == "404")
                     {
@@ -389,8 +392,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
-
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_notFound.Build(); msg.Components = null; });
                     }
                     else
                     {
@@ -402,7 +404,7 @@ namespace ArtilitiesBot.Commands
                         {
                             Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
                         };
-                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Content = "Last Updated by " + embedMenu.User.Mention; });
+                        await embedMenu.UpdateAsync(msg => { msg.Embed = user_Error.Build(); msg.Components = null; });
 
                     }
                     break;
