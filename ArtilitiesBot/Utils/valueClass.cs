@@ -13,7 +13,7 @@ namespace ArtilitiesBot.Utils
         public static string devKey;
         public static string userID;
 
-        public static string version = "1.1.3";
+        public static string version = "1.1.4";
 
         //Reads the values from the artilities Bot Config
         public Task readValues()

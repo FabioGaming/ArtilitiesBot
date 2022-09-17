@@ -26,7 +26,7 @@ namespace ArtilitiesBot
             Console.WriteLine("Setting SocketConfig");
             var socketConfig = new DiscordSocketConfig
             {
-                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers, LogLevel = LogSeverity.Error, UseInteractionSnowflakeDate = false
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.MessageContent, LogLevel = LogSeverity.Error, UseInteractionSnowflakeDate = false
             };
             
             client = new DiscordSocketClient(socketConfig);
@@ -121,7 +121,6 @@ namespace ArtilitiesBot
         //Adds Discord Log Messages to Log file
         private static async Task logger(LogMessage log)
         {
-            Console.WriteLine(log);
             await Utils.Logger.AddLog(log);
         }
 
