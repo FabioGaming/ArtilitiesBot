@@ -122,7 +122,7 @@ namespace ArtilitiesBot.Commands
                     EmbedBuilder user_notFound = new EmbedBuilder();
                     user_notFound.Color = Color.Purple;
                     user_notFound.Title = "This user does not Exist!";
-                    user_notFound.Description = $"The user **{target}** does not have an Artilities Account / does not exist in the Artilities Database!";
+                    user_notFound.Description = $"The user **<@{target}>** does not have an Artilities Account / does not exist in the Artilities Database!";
                     user_notFound.Footer = new EmbedFooterBuilder()
                     {
                         Text = $"Server responded with {userColors["statusCode"]} in {userColors["delayTime"]}ms"
