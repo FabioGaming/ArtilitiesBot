@@ -11,12 +11,20 @@ namespace ArtilitiesBot.Commands
 
         public async Task getChallengeHandler(SocketMessage message)
         {
-            //Utils.APIManager API = new Utils.APIManager();
+
+            Utils.Templates.loadingEmbed loadingEmbedClass = new Utils.Templates.loadingEmbed();
+            EmbedBuilder loadingEmbed = loadingEmbedClass._loadingEmbed;
+
+
+            var origin = (IUserMessage)message.Channel.SendMessageAsync("", false, loadingEmbed.Build());
+            
+
+            
             EmbedBuilder challengeMessage = new EmbedBuilder();
             Dictionary<string, string> challenge = Artilities.main.GetChallenge();
             if (challenge != null)
             {
-                challengeMessage.Description = $"English:{challenge["english"]}\n\nRussian: {challenge["russian"]}";
+                challengeMessage.Description = $"English: {challenge["english"]}\n\nRussian: {challenge["russian"]}";
             }
             else { challengeMessage.Description = "An Error occurred."; }
             challengeMessage.Color = Color.Purple;
@@ -27,7 +35,10 @@ namespace ArtilitiesBot.Commands
             };
             try
             {
-                await message.Channel.SendMessageAsync("", false, challengeMessage.Build());
+                //await message.Channel.SendMessageAsync("", false, challengeMessage.Build());
+                await origin.ModifyAsync(msg => { msg.Embed = challengeMessage.Build(); });
+                
+                
             }
             catch(Exception e)
             {
