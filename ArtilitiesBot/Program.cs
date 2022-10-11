@@ -26,7 +26,7 @@ namespace ArtilitiesBot
             Console.WriteLine("Setting SocketConfig");
             var socketConfig = new DiscordSocketConfig
             {
-                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.MessageContent, LogLevel = LogSeverity.Error, UseInteractionSnowflakeDate = false
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.GuildMembers | GatewayIntents.MessageContent, LogLevel = LogSeverity.Error, UseInteractionSnowflakeDate = false, AlwaysDownloadUsers = true
             };
             
             client = new DiscordSocketClient(socketConfig);
